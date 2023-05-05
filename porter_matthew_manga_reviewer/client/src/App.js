@@ -9,14 +9,14 @@ import Home from "./components/Home";
 
 
 function App() {
-  const [user, setUser] = useState({})
+  const [users, setUsers] = useState([])
   return (
     <div className="App">
       <h1>Hello World!</h1>
       <BrowserRouter>
       <Routes>
         <Route element={<Register/>} path='/register' default/>
-        <Route element={<Home/>} path='/home'/>
+        <Route element={<Home/>} path='/home' users={users} setUsers={setUsers}/>
       </Routes>
       </BrowserRouter>
     </div>

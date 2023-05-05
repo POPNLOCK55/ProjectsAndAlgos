@@ -42,6 +42,7 @@ const Register = (props) => {
     return (
         <div>
             <form onSubmit={registrationHandler}>
+            {errors.map((error, index) => <p key={index}>{error}</p>)}
                 <div>
                 <label htmlFor='firstName'>First Name: </label>
                 <input name='firstName' type='text' onChange={changeHandler} />
