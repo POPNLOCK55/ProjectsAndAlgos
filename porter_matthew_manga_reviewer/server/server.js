@@ -3,6 +3,8 @@ const cors = require('cors');
 const cookieParser = require("cookie-parser")
 const app = express();
 const jwt = require("jsonwebtoken");
+require('dotenv').config();
+
 
 
 

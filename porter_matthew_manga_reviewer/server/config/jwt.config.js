@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
-const secret = "Sons of Sparda"
-module.exports.secret = secret;
+require('dotenv').config();
+
+
 module.exports.authenticate = (request, response, next) => {
-    jwt.verify(req.cookies.userToken, secret, (error, payload) => {
+    jwt.verify(request.cookies.userToken, process.env.FIRST_SECRET_KEY, (error, payload) => {
         if (error) {
             response.status(401).json({verified: false});
         } else {
