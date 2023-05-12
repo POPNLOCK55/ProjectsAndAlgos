@@ -2,18 +2,28 @@ const mongoose = require("mongoose");
 
 
 const MangaReviewSchema = new mongoose.Schema({
-    ReviewCreator: [],
-    Mangatitle: {type: String, 
-    required: [true, "Manga needs a title!"]},
-    Mangaauthor: {type: String,
-    required: [true, "Who wrote this manga?"]},
-    rating: {type: Number,
-    required: [true, "Please give a rating."]},
-    reviewTitle: {type: String,
-    required: [false]},
-    reviewBody: {type: String,
-    required: [true, "Please tell us your thoughts on this manga."]}
-}, {timestamps: true})
+    // reviewCreator: {type: String},
+    mangaTitle: {
+        type: String,
+        required: [true, "Manga needs a title!"]
+    },
+    mangaAuthor: {
+        type: String,
+        required: [true, "Who wrote this manga?"]
+    },
+    rating: {
+        type: Number,
+        required: [true, "Please give a rating."]
+    },
+    reviewTitle: {
+        type: String,
+        required: [false]
+    },
+    reviewBody: {
+        type: String,
+        required: [true, "Please tell us your thoughts on this manga."]
+    }
+}, { timestamps: true })
 
 module.exports = mongoose.model('MangaReview', MangaReviewSchema)
 

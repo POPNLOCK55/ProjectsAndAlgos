@@ -62,3 +62,6 @@ function leapYear(year){
 console.log(leapYear(2000))
 
 //Print and Count
+
+var five = 5;
+for (var i = 512; )

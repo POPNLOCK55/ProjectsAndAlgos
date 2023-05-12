@@ -4,11 +4,13 @@ const bcrypt = require('bcrypt')
 const UserSchema = new mongoose.Schema({
     firstName: {
         type: String,
-        required: [true, "Name must be 3 characters or more!"]
+        required: [true, "First name is required!"],
+        minlength: [3, "First name must be 3 characters or more!"]
     },
     lastName: {
         type: String,
-        required: [true, "Last Name must be 3 characters or more!"]
+        required: [true, "Last name is required!"],
+        minlength: [3, "Last name must be 3 characters or more!"]
     },
     email: {
         type: String,
@@ -35,12 +37,14 @@ UserSchema.pre('validate', function (next) {
     }
     next();
 });
-UserSchema.pre('save', function (next) {
-    bcrypt.hash(this.password, 10)
-        .then(hash => {
-            this.password = hash;
-            next();
-        })
-        .catch(err => {console.log("xxx", err)})
+UserSchema.pre('save', async function(next){
+    try{
+        const hashedPassword = await bcrypt.hash(this.password,10)
+        console.log('Hashed password:', hashedPassword)
+        this.password = hashedPassword
+        next()
+    }catch{
+        console.log('Error in save', error)
+    }
 });
 module.exports = mongoose.model('User', UserSchema);

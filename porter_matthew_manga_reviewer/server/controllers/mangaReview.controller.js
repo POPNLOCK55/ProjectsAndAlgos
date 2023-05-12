@@ -2,10 +2,10 @@ const Review = require('../models/manga.model');
 const User = require("../models/user.model")
 module.exports = {
     createReview: (request, response) => {
-        const {title, rating, author, reviewTitle, reviewBody} = request.body;
+        const {mangaTitle, rating, mangaAuthor, reviewTitle, reviewBody} = request.body;
         Review.create({
-            title,
-            author,
+            mangaTitle,
+            mangaAuthor,
             rating,
             reviewTitle,
             reviewBody
