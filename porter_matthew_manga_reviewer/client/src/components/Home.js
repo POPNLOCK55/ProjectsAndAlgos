@@ -6,35 +6,37 @@ import axios from 'axios';
 
 
 const Home = (props) => {
-    const {user, setUser} = props;
+    const { user, setUser } = props;
     const [allUsers, setAllUsers] = useState([])
     const [allReviews, setAllReviews] = useState([])
     const navigate = useNavigate()
+
+
     const logoutUser = (e) => {
-        axios.get("http://localhost:8000/api/logoutUser",
-        {withCredentials: true})
-        .then(response => {
-            console.log("successfully logged out!")
-            console.log(response.data)
-            navigate('/register')
-        })
-        .catch(err => {
-            console.log(err.config.data)
-            console.log("err is:", err)
-        })
+        axios.post("http://localhost:8000/api/logout",
+            { withCredentials: true })
+            .then(response => {
+                console.log("successfully logged out!")
+                console.log(response.data)
+                navigate('/register')
+            })
+            .catch(err => {
+                console.log(err.config.data)
+                console.log("err is:", err)
+            })
     }
     useEffect(() => {
         axios.get("http://localhost:8000/api/reviews")
-        .then(response => {
-            console.log(response.data)
-            setAllReviews(response.data)
-        }).catch(err => console.log(err))
+            .then(response => {
+                console.log(response.data)
+                setAllReviews(response.data)
+            }).catch(err => console.log(err))
     }, [])
 
 
-    return(
+    return (
         <div>
-            {/* <Link onClick={logoutUser}>logout</Link> */}
+            <Link onClick={logoutUser}>logout</Link>
             <h1>Welcome!</h1>
             {allReviews.map((review, index) => {
                 return <div key={index}>
@@ -50,5 +52,3 @@ const Home = (props) => {
 }
 export default Home
 
-/*/ Registration is not working atm
-Get that fixed tomorrow./*/

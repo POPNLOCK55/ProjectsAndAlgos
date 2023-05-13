@@ -1,20 +1,20 @@
 const Review = require('../models/manga.model');
+const jwt = require('jsonwebtoken');
+const myFirstKey = process.env.FIRST_SECRET_KEY;
 const User = require("../models/user.model")
+
+
 module.exports = {
     createReview: (request, response) => {
-        const {mangaTitle, rating, mangaAuthor, reviewTitle, reviewBody} = request.body;
-        Review.create({
-            mangaTitle,
-            mangaAuthor,
-            rating,
-            reviewTitle,
-            reviewBody
-        })
-        .then(review => response.json(review))
+        const user = jwt.verify(req.cookies.userToken, myFirstKey);
+        // const {reviewCreator, mangaTitle, rating, mangaAuthor, reviewTitle, reviewBody} = request.body;
+        Review.create({...request.body, reviewCreator: user})
+        .then(review => response.status(201).json(review))
         .catch(error => response.status(400).json(error))
     },
     getAllReviews: (request, response) => {
         Review.find({})
+        .populate('reviewCreator', 'firstName')
         .then(reviews => {
             console.log(reviews)
             response.json(reviews)

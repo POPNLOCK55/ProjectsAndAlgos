@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
 
 
+
 const MangaReviewSchema = new mongoose.Schema({
-    // reviewCreator: {type: String},
+    reviewCreator: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserSchema'
+    },
     mangaTitle: {
         type: String,
         required: [true, "Manga needs a title!"]

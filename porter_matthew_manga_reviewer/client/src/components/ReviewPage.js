@@ -3,9 +3,10 @@ import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 
 const ReviewPage = (props) => {
-    const {id} = useParams();
+    const {id} = useParams()
 
     const [review, setReview] = useState({
+        reviewCreator: "",
         mangaTitle: "",
         mangaAuthor: "",
         rating: "",
@@ -30,7 +31,7 @@ const ReviewPage = (props) => {
             <div>
                 <p>Mangaka: {review.mangaAuthor}</p>
                 <p>Title of Work: {review.mangaTitle}</p>
-                <p>Reviewed by: Username here</p>
+                <p>Reviewed by: {review.reviewCreator}</p>
             </div>
             <div>
                 <p>{review.reviewBody}</p>

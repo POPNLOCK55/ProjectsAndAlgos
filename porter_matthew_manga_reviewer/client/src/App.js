@@ -6,6 +6,7 @@ import axios from 'axios';
 import LoginReg from "./views/LoginReg";
 import Home from "./components/Home";
 import ReviewPage from './components/ReviewPage';
+import CreateReview from './components/CreateReview';
 
 
 
@@ -18,6 +19,7 @@ function App() {
         <Route element={<LoginReg/>} path='/register' default/>
         <Route element={<Home/>} path='/home' users={users} setUsers={setUsers}/>
         <Route element={<ReviewPage/>} path='/reviews/:id' />
+        <Route element={<CreateReview/>} path='/review/create' />
       </Routes>
       </BrowserRouter>
     </div>
