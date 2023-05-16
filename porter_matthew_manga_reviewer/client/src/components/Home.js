@@ -34,7 +34,8 @@ const Home = ({loggedUser, setLoggedUser}) => {
                 setAllReviews(response.data)
             }).catch(err => console.log(err))
     }, [])
-
+//Register method is not allowing a user to logout.
+//After registering a user and publishing a review, the reviewCreator field does not exist. 
 
     return (
         <div>

@@ -37,13 +37,13 @@ UserSchema.pre('validate', function (next) {
     }
     next();
 });
-UserSchema.pre('save', async function(next){
-    try{
-        const hashedPassword = await bcrypt.hash(this.password,10)
+UserSchema.pre('save', async function (next) {
+    try {
+        const hashedPassword = await bcrypt.hash(this.password, 10)
         console.log('Hashed password:', hashedPassword)
         this.password = hashedPassword
         next()
-    }catch{
+    } catch {
         console.log('Error in save', error)
     }
 });

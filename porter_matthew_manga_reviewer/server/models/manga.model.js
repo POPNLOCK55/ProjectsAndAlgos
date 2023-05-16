@@ -37,6 +37,4 @@ const MangaReviewSchema = new mongoose.Schema({
 
 module.exports = mongoose.model('MangaReview', MangaReviewSchema)
 
-/*/I need to insert the creating user as a key in my model.
-How would I dynamically pull the User id based on who is logged in?
-Would that be in useState on the front end?/*/
+
