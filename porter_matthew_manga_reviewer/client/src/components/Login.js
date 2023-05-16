@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
-const Login = (props) => {
+const Login = ({ setLoggedUser }) => {
+
     const [logUser, setLogUser] = useState({
         email: "",
         password: ""
@@ -23,11 +24,13 @@ const Login = (props) => {
         }, { withCredentials: true })
             .then(response => {
                 console.log("user successfully logged in.")
-                console.log(response.data)
+                console.log(response)
+                setLoggedUser(response.data.user)
+                console.log("under set user")
                 navigate("/home")
             })
             .catch(err => {
-                console.log(err.config.data)
+                // console.log(err.config.data)
                 console.log("err is:", err)
                 const errorResponse = err.response;
                 console.log("error response sends back:", errorResponse)

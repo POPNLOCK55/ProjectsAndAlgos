@@ -14,7 +14,7 @@ const ReviewPage = (props) => {
         reviewBody: ""
     })
         useEffect(() => {
-        axios.get("http://localhost:8000/api/reviews/" + id,
+        axios.get("http://localhost:8000/api/review/" + id,
         {withCredentials: true})
         .then(response => {
             console.log(response.data)
@@ -31,7 +31,7 @@ const ReviewPage = (props) => {
             <div>
                 <p>Mangaka: {review.mangaAuthor}</p>
                 <p>Title of Work: {review.mangaTitle}</p>
-                <p>Reviewed by: {review.reviewCreator}</p>
+                <p>Reviewed by: {review.reviewCreator.firstName}</p>
             </div>
             <div>
                 <p>{review.reviewBody}</p>

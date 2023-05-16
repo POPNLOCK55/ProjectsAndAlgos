@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
-const Register = (props) => {
+const Register = ({ setLoggedUser }) => {
     const [newUser, setNewUser] = useState({
         firstName: "",
         lastName: "",
@@ -13,12 +13,12 @@ const Register = (props) => {
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     axios.get("http://localhost:8000/api/users")
-    //     .then(response => {
-    //         console.log(response)
-    //     }).catch(err => console.log(err))
-    // }, [])
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/users")
+            .then(response => {
+                console.log(response)
+            }).catch(err => console.log(err))
+    }, [])
 
     const registrationHandler = (e) => {
         e.preventDefault()
@@ -33,6 +33,7 @@ const Register = (props) => {
             .then(response => {
                 console.log("success")
                 console.log(response.data)
+                setLoggedUser(response.data.user)
                 navigate("/home")
             })
             .catch(err => {
@@ -76,7 +77,7 @@ const Register = (props) => {
                     <label htmlFor='confirmPassword'>Confirm Password: </label>
                     <input name='confirmPassword' type='password' value={newUser.confirmPassword} onChange={changeHandler} />
                 </div>
-                    <button value="Register" type='submit'>Register</button>
+                <button value="Register" type='submit'>Register</button>
             </form>
         </div>
     )

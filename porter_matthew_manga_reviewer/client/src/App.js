@@ -7,19 +7,23 @@ import LoginReg from "./views/LoginReg";
 import Home from "./components/Home";
 import ReviewPage from './components/ReviewPage';
 import CreateReview from './components/CreateReview';
+import EditReview from './components/EditReview';
+import TopBar from './components/TopBar';
 
 
 
 function App() {
-  const [users, setUsers] = useState([])
+  const [loggedUser, setLoggedUser] = useState({})
   return (
     <div className="App">
+      <TopBar loggedUser = {loggedUser} setLoggedUser={setLoggedUser}/>
       <BrowserRouter>
       <Routes>
-        <Route element={<LoginReg/>} path='/register' default/>
-        <Route element={<Home/>} path='/home' users={users} setUsers={setUsers}/>
-        <Route element={<ReviewPage/>} path='/reviews/:id' />
-        <Route element={<CreateReview/>} path='/review/create' />
+        <Route element={<LoginReg  setLoggedUser = {setLoggedUser}/>} path='/register' default/>
+        <Route element={<Home loggedUser = {loggedUser} setLoggedUser={setLoggedUser}/>} path='/home'/>
+        <Route element={<ReviewPage  loggedUser = {loggedUser} setLoggedUser={setLoggedUser}/>} path='/reviews/:id' />
+        <Route element={<CreateReview  loggedUser = {loggedUser} setLoggedUser={setLoggedUser}/>} path='/review/create' />
+        <Route element={<EditReview  loggedUser = {loggedUser} setLoggedUser={setLoggedUser}/>} path='/review/edit/:id' />
       </Routes>
       </BrowserRouter>
     </div>

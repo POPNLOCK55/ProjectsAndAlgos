@@ -2,42 +2,52 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
 
-const CreateReview = ({ loggedUser, setLoggedUser }) => {
-
-
-    const [newReview, setNewReview] = useState({
-        mangaTitle: "",
-        mangaAuthor: "",
-        rating: "",
-        reviewTitle: "",
-        reviewBody: ""
-    })
+const EditReview = ({loggedUser, setLoggedUser}) => {
+    const { id } = useParams();
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
-    const { id } = useParams()
+
+    const [reviewEdit, setReviewEdit] = useState({
+        reviewCreator: '',
+        mangaTitle: '',
+        mangaAuthor: '',
+        rating: '',
+        reviewTitle: '',
+        reviewBody: ''
+    })
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/reviews/' + id,
+            { withCredentials: true })
+            .then(response => {
+                console.log('Response sends:', response.data)
+                setReviewEdit(response.data)
+            })
+            .catch(error => console.log(error))
+    }, [])
+
 
     const changeHandler = (e) => {
-        setNewReview({ ...newReview, [e.target.name]: e.target.value })
+        setReviewEdit({ ...reviewEdit, [e.target.name]: e.target.value })
     }
 
-    const publishHandler = (e) => {
+    const updateHandler = (e) => {
         e.preventDefault()
-        console.log(newReview)
-        console.log("logged user:", loggedUser)
-        axios.post("http://localhost:8000/api/review", {
-            mangaTitle: newReview.mangaTitle,
-            mangaAuthor: newReview.mangaAuthor,
-            rating: newReview.rating,
-            reviewTitle: newReview.reviewTitle,
-            reviewBody: newReview.reviewBody
+        console.log(reviewEdit)
+        axios.put("http://localhost:8000/api/review", {
+            // reviewCreator: newReview.reviewCreator,
+            mangaTitle: reviewEdit.mangaTitle,
+            mangaAuthor: reviewEdit.mangaAuthor,
+            rating: reviewEdit.rating,
+            reviewTitle: reviewEdit.reviewTitle,
+            reviewBody: reviewEdit.reviewBody
         }, { withCredentials: true })
-        .then(response => {
+            .then(response => {
                 console.log("success")
                 console.log(response.data)
                 navigate(`/reviews/${response.data._id}`)
             })
             .catch(err => {
-                console.log(typeof loggedUser)
                 console.log(err.config.data)
                 console.log("err is:", err)
                 const errorResponse = err.response;
@@ -48,24 +58,24 @@ const CreateReview = ({ loggedUser, setLoggedUser }) => {
                 }
                 setErrors(errorArray)
             })
-    }  //for some reason passing in the reviewCreator field is breaking. Get that fixed tomorrow! 5/14
+    }
     return (
         <div>
-            <form onSubmit={(e) => publishHandler(e)}>
+            <form onSubmit={(e) => updateHandler(e)}>
                 <div>
-                    <h1>Write your own Review!</h1>
+                    <h1>Edit your Review!</h1>
                     <Link to={"/home"}>Home</Link>
                     {errors.map((error, index) => <p key={index}>{error}</p>)}
                     <label htmlFor='mangaTitle'>Manga Title: </label>
-                    <input name='mangaTitle' type='text' value={newReview.mangaTitle} onChange={changeHandler} />
+                    <input placeholder={reviewEdit.mangaTitle} name='mangaTitle' type='text' value={reviewEdit.mangaTitle} onChange={changeHandler} />
                 </div>
                 <div>
                     <label htmlFor='mangaAuthor'>Mangaka: </label>
-                    <input name='mangaAuthor' type='text' value={newReview.mangaAuthor} onChange={changeHandler} />
+                    <input value={reviewEdit.mangaAuthor} name='mangaAuthor' type='text'onChange={changeHandler} />
                 </div>
                 <div>
                     <label htmlFor='rating'>Rating: </label>
-                    <select name='rating' value={newReview.rating} onChange={changeHandler} >
+                    <select placeholder={reviewEdit.rating} name='rating' value={reviewEdit.rating} onChange={changeHandler} >
                         <option>0</option>
                         <option>1</option>
                         <option>2</option>
@@ -81,16 +91,16 @@ const CreateReview = ({ loggedUser, setLoggedUser }) => {
                 </div>
                 <div>
                     <label htmlFor='reviewTitle'>Title of your Review: </label>
-                    <input name='reviewTitle' type='text' value={newReview.reviewTitle} onChange={changeHandler} />
+                    <input name='reviewTitle' type='text' value={reviewEdit.reviewTitle} onChange={changeHandler} />
                 </div>
                 <div>
                     <label htmlFor='reviewBody'>Your thoughts: </label>
-                    <textarea name='reviewBody' type='text' value={newReview.reviewBody} onChange={changeHandler} />
+                    <textarea name='reviewBody' type='text' value={reviewEdit.reviewBody} onChange={changeHandler} />
                 </div>
-                <button value="Publish" type='submit'>Publish</button>
+                <button value="Update" type='submit'>Update</button>
             </form>
         </div>
     )
 }
 
-export default CreateReview
+export default EditReview

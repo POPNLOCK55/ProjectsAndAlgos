@@ -5,10 +5,11 @@ import Login from '../components/Login';
 
 
 const LoginReg = (props) => {
+    const {setLoggedUser} = props;
     return(
         <div>
-            <Register/>
-            <Login/>
+            <Register setLoggedUser = {setLoggedUser}/>
+            <Login setLoggedUser = {setLoggedUser}/>
         </div>
     )
 }
