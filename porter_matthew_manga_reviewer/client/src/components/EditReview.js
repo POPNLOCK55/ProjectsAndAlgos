@@ -34,7 +34,7 @@ const EditReview = ({loggedUser, setLoggedUser}) => {
     const updateHandler = (e) => {
         e.preventDefault()
         console.log(reviewEdit)
-        axios.put("http://localhost:8000/api/review", {
+        axios.put("http://localhost:8000/api/review/update/" + reviewEdit._id, {
             // reviewCreator: newReview.reviewCreator,
             mangaTitle: reviewEdit.mangaTitle,
             mangaAuthor: reviewEdit.mangaAuthor,

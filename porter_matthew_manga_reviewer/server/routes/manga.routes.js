@@ -9,12 +9,11 @@ module.exports = (app) => {
     app.get('/api/reviews/:id', ReviewController.getOneReview);
     app.get('/api/review/:id', ReviewController.getOneReview);
     app.post('/api/logout', UserController.logoutUser);
-    // app.put('/api/reviews/:id', ReviewController.updateReview)
     app.post('/api/login', UserController.loginUser);
     app.post('/api/register', UserController.registerUser);
     app.post('/api/review', ReviewController.createReview);
-    app.put('/api/review/update', ReviewController.updateReview);
-    app.delete('/api/review/delete', ReviewController.deleteReview);
+    app.put('/api/review/update/:id', ReviewController.updateReview);
+    app.delete('/api/review/delete/:id', ReviewController.deleteReview);
 }
 
 //How can I relate a review with the user who created it?
