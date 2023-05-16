@@ -11,20 +11,20 @@ const Home = ({loggedUser, setLoggedUser}) => {
     const [allReviews, setAllReviews] = useState([])
     const navigate = useNavigate()
 
-    // const removeReviewFromDOM = reviewId => {
-    //     setAllReviews(allReviews.filter(review => review._id !== reviewId));
-    // }
+    const removeReviewFromDOM = reviewId => {
+        setAllReviews(allReviews.filter(review => review._id !== reviewId));
+    }
 
-    // const deleteReview = (reviewId) => {
-    //     axios.delete('http://localhost:8000/api/review/delete/' + reviewId,
-    //     {withCredentials: true})
-    //     .then(response => {
-    //         console.log("attempting to delete review...")
-    //         removeReviewFromDOM(reviewId)
-    //         console.log("Review successfully deleted!", response)
-    //     })
-    //     .catch(error => console.log("Here's the error:", error))
-    // }
+    const deleteReview = (reviewId) => {
+        axios.delete('http://localhost:8000/api/review/delete/' + reviewId,
+        {withCredentials: true})
+        .then(response => {
+            console.log("attempting to delete review...")
+            removeReviewFromDOM(reviewId)
+            console.log("Review successfully deleted!", response)
+        })
+        .catch(error => console.log("Here's the error:", error))
+    }
 
 
     useEffect(() => {
@@ -48,7 +48,7 @@ const Home = ({loggedUser, setLoggedUser}) => {
                     <p>Score: {review.rating}</p>
                     <p>Reviewed by: {review.reviewCreator?.firstName}</p>
                     <Link to={`/review/edit/${review._id}`}>Edit Review</Link>
-                    {/* <button onClick={(e) => deleteReview(review._id)}>Delete Review</button> */}
+                    <button onClick={(e) => deleteReview(review._id)}>Delete Review</button>
                 </div>
             })}
         </div>

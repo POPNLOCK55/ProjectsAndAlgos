@@ -48,9 +48,7 @@ module.exports = {
         const deleteReview = await Review.deleteOne({ _id: request.params.id })
         try {
             const userToken = jwt.sign({
-                id: user._id,
-                firstName: user.firstName,
-                lastName: user.lastName
+                id: deleteReview._id,
             }, myFirstKey)
             response
                 .cookie("userToken", userToken, {
