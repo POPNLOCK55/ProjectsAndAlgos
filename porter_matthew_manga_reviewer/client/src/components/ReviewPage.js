@@ -31,7 +31,7 @@ const ReviewPage = (props) => {
             <div>
                 <p>Mangaka: {review.mangaAuthor}</p>
                 <p>Title of Work: {review.mangaTitle}</p>
-                <p>Reviewed by: {review.reviewCreator.firstName}</p>
+                <p>Reviewed by: {review.reviewCreator?.firstName}</p>
             </div>
             <div>
                 <p>{review.reviewBody}</p>

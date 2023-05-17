@@ -6,6 +6,7 @@ const CreateReview = ({ loggedUser, setLoggedUser }) => {
 
 
     const [newReview, setNewReview] = useState({
+        reviewCreator: "",
         mangaTitle: "",
         mangaAuthor: "",
         rating: "",
@@ -25,6 +26,7 @@ const CreateReview = ({ loggedUser, setLoggedUser }) => {
         console.log(newReview)
         console.log("logged user:", loggedUser)
         axios.post("http://localhost:8000/api/review", {
+            reviewCreator: newReview.reviewCreator,
             mangaTitle: newReview.mangaTitle,
             mangaAuthor: newReview.mangaAuthor,
             rating: newReview.rating,
