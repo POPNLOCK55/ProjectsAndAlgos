@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import { Button, Form, InputGroup, Container } from 'react-bootstrap';
 
 const Login = ({ setLoggedUser }) => {
 
@@ -44,21 +45,26 @@ const Login = ({ setLoggedUser }) => {
 
 
     return (
-        <div>
-            <h2>Login</h2>
-            {errors.map((error, index) => <p key={index}>{error}</p>)}
-            <form onSubmit={(e) => loginHandler(e)}>
-                <div>
-                    <label htmlFor='email'>E-mail: </label>
-                    <input type='text' name='email' value={logUser.email} onChange={changeHandler} />
-                </div>
-                <div>
-                    <label htmlFor='password'>Password: </label>
-                    <input type='password' name='password' value={logUser.password} onChange={changeHandler} />
-                </div>
-                <button type='submit'>Login</button>
-            </form>
-        </div>
+        <Container fluid={'xxl'}>
+            <Form onSubmit={(e) => loginHandler(e)}>
+                <h2>Login</h2>
+                {errors.map((error, index) => <p key={index}>{error}</p>)}
+                <InputGroup size='lg' className='mb-3' controlId='loginEmail' >
+                    <InputGroup.Text htmlFor='email'>E-mail: </InputGroup.Text>
+                    <Form.Control
+                        type='email'
+                        name='email'
+                        placeholder='Enter your E-mail...'
+                        value={logUser.email}
+                        onChange={changeHandler} />
+                </InputGroup>
+                <InputGroup size='lg' className='mb-3' controlId='loginPassword'>
+                    <InputGroup.Text htmlFor='password'>Password: </InputGroup.Text>
+                    <Form.Control type='password' placeholder='Enter your Password...' name='password' value={logUser.password} onChange={changeHandler} />
+                </InputGroup>
+                <Button size='lg' variant='primary' type='submit'>Login</Button>
+            </Form>
+        </Container>
     )
 }
 export default Login
