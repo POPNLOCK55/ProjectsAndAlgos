@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Navbar, Container, Nav } from 'react-bootstrap';
 import axios from 'axios';
 
 const TopBar = ({loggedUser, setLoggedUser}) => {
@@ -33,23 +33,28 @@ const TopBar = ({loggedUser, setLoggedUser}) => {
 
 
     return (
-        <nav>
+        <Navbar expand="lg" bg='primary' variant='dark'>
+            <Container>
             {(loggedUser && loggedUser.firstName) ? loggedUser.firstName : "You're not logged in..."}
-            <a href='/home'>
-                Home
-            </a>
+            <Navbar.Brand href='/home'>
+                MangaReviewer
+            </Navbar.Brand>
             {(loggedUser && loggedUser.firstName) ?
-                <>
-                    <a href="/register" onClick={(e) => logoutUser(e)}>
+                <Nav className='me-auto'>
+                    <Nav.Link href="/home">
+                        Go Home
+                    </Nav.Link>
+                    <Nav.Link href="/register" onClick={(e) => logoutUser(e)}>
                         Logout
-                    </a>
-                </>
-                :
-                <a href="/register">
-                    Login
-                </a>
-            }
-        </nav>
+                    </Nav.Link>
+                </Nav>
+                    :
+                    <Nav.Link href="/register">
+                        Login
+                    </Nav.Link>
+                }
+            </Container>
+        </Navbar>
     )
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { Button, Form, InputGroup, Container } from 'react-bootstrap';
 
@@ -55,7 +55,7 @@ const Register = ({ setLoggedUser }) => {
 
     return (
         <Container fluid={'xxl'}>
-            <h1>Welcome to Manga Reviewer!</h1>
+            <h2>Register an Account!</h2>
             <Form onSubmit={(e) => registrationHandler(e)}>
                 <InputGroup size='lg' className='mb-3' controlId='regFirstName' >
                     {errors.map((error, index) => <p key={index}>{error}</p>)}
