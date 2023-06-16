@@ -19,7 +19,7 @@ function App() {
       <TopBar loggedUser = {loggedUser} setLoggedUser={setLoggedUser}/>
       <BrowserRouter>
       <Routes>
-        <Route element={<LoginReg  setLoggedUser = {setLoggedUser}/>} path='/register' default/>
+        <Route element={<LoginReg  setLoggedUser = {setLoggedUser}/>} path='/' default/>
         <Route element={<Home loggedUser = {loggedUser} setLoggedUser={setLoggedUser}/>} path='/home'/>
         <Route element={<ReviewPage  loggedUser = {loggedUser} setLoggedUser={setLoggedUser}/>} path='/reviews/:id' />
         <Route element={<CreateReview  loggedUser = {loggedUser} setLoggedUser={setLoggedUser}/>} path='/review/create' />
